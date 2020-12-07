@@ -13,11 +13,15 @@ app.use(bodyParser.json());
 // Paquete modelo (importa el esquema desde el modelo )
 const ReservaModelo = require("./modeloReserva");
 
+// Paquete de underscore
+let under= require('underscore');
+
 // OPERACIONES DEL API
+// get traer
 app.get("/reservas", function (peticion, respuesta) {
   respuesta.json({ respuesta: "soy unar respusta GET" });
 });
-// insertar datos  post
+// insertar datos  post (AÑADIR O CREAR)
 app.post("/reservas", function (peticion, respuesta) {
       //    VALIDACION
       // 1. se traen los datos del cliente API
@@ -42,7 +46,8 @@ app.post("/reservas", function (peticion, respuesta) {
 
           respuesta.status(400).json({
               mensaje: err,
-              estado: false
+              estado: false,
+              mensaje: "Debe de llenarse todos los campos"
           })
 
         }else{
@@ -57,10 +62,22 @@ app.post("/reservas", function (peticion, respuesta) {
  // respuesta.json({ respuesta: "soy unar respusta POST" });
 
 });
-// actualizar datos  put
+// actualizar datos  put (ACTUALIZAR)
 app.put("/reservas/:id", function (peticion, respuesta) {
+
+  //1. Recibir los datos que voy ha actualizar
+  let datos = peticion.body;
+
+  //2. Filtra los datos con underScore()
+  let datosActualizar = under.pick(datos,["nombre","apellido","telefono","fechaInicioReserva","fechaFinReserva","numeroDePersonas","tipoDePaquete"]);
   let identificador = peticion.params.id;
   respuesta.json({ respuesta: "Desea Editar la  Reserva : " + identificador });
+
+  //3. Recibir el indicador el id  o identificador del documento(objeto a actualizar)
+  let identificador = peticion.params.id;
+
+  //4. Ejecutar la operacion para actualizar 
+  ReservaModelo.findByIdAndDelete(identificador,datosActualizar,(err,resultado)=>{});
 });
 // borrar datos  delete
 app.delete("/reservas/:id", function (peticion, respuesta) {
