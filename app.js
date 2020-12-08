@@ -31,7 +31,7 @@ mongoose.connect('mongodb://localhost:27017/dbreservas', {
 
 // Establecemos la conexion con la base de datos 
 mongoose.connection
-  .once('open', ()=>console.log("Estas Conectado a la DB"))
+  .once('open', ()=>console.log("Estas Conectado a la DB."))
   .on('error',(error) =>{console.log("Error",error)});
 // callback
 // Establesemos la conexion con el servidor que tiene los servicios 
