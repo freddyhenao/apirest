@@ -14,6 +14,9 @@ app.use(bodyParser.json());
 // conexion con la base de datos Mongo
 const mongoose = require('mongoose');
 
+// conexion con HEROKU
+
+const puerto = process.env.PORT || 3000;
 
 // Importemos y usemos app de express () paquetes propios
  app.use(require('./controladorReservas'));
