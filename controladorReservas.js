@@ -25,7 +25,7 @@ const { findById } = require("./modeloReserva");
 app.use(cors());
 
 // se consulta a la base de datos todos los aocumentos de reserva
-pp.get("/reservas/all", function (peticion, respuesta) {
+app.get("/reservas/all", function (peticion, respuesta) {
 
   //2. Ejecutar la operacion de mongoose pra buscar los  documento po id
   ReservaModelo.find({})
